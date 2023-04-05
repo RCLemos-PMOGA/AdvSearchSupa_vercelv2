@@ -5,33 +5,7 @@
   <title>Pesquisa de Pessoas</title>
 </head>
 <body>
-  
-  <h1>Pesquisa de Pessoas!</h1>
-  <label>
-    <input type="checkbox" name="idade" value="30">30 anos
-  </label>
-  <label>
-    <input type="checkbox" name="idade" value="31">31 anos
-  </label>
-  <label>
-    <input type="checkbox" name="idade" value="28">28 anos
-  </label>
-  <br>
-  <label>
-    <input type="checkbox" name="cidade" value="São Paulo">São Paulo
-  </label>
-  <label>
-    <input type="checkbox" name="cidade" value="Rio de Janeiro">Rio de Janeiro
-  </label>
-  <label>
-    <input type="checkbox" name="cidade" value="Belo Horizonte">Belo Horizonte
-  </label>
-  <br>
-  <button>Pesquisar</button>
-  <div id="loader" style="display: none;">Carregando...</div>
-  <div id="resultado"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <script type="module">
 
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
@@ -82,5 +56,29 @@
       })
 }
   </script>
+  <h1>Pesquisa de Pessoas!</h1>
+  <label>
+    <input type="checkbox" name="idade" value="30">30 anos
+  </label>
+  <label>
+    <input type="checkbox" name="idade" value="31">31 anos
+  </label>
+  <label>
+    <input type="checkbox" name="idade" value="28">28 anos
+  </label>
+  <br>
+  <label>
+    <input type="checkbox" name="cidade" value="São Paulo">São Paulo
+  </label>
+  <label>
+    <input type="checkbox" name="cidade" value="Rio de Janeiro">Rio de Janeiro
+  </label>
+  <label>
+    <input type="checkbox" name="cidade" value="Belo Horizonte">Belo Horizonte
+  </label>
+  <br>
+  <button>Pesquisar</button>
+  <div id="loader" style="display: none;">Carregando...</div>
+  <div id="resultado"></div>
 </body>
 </html>
