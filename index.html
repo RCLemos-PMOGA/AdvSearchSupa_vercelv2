@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pesquisa de Pessoas</title>
+</head>
+<body>
+  
+  <h1>Pesquisa de Pessoas</h1>
+  <label>
+    <input type="checkbox" name="idade" value="30">30 anos
+  </label>
+  <label>
+    <input type="checkbox" name="idade" value="31">31 anos
+  </label>
+  <label>
+    <input type="checkbox" name="idade" value="28">28 anos
+  </label>
+  <br>
+  <label>
+    <input type="checkbox" name="cidade" value="São Paulo">São Paulo
+  </label>
+  <label>
+    <input type="checkbox" name="cidade" value="Rio de Janeiro">Rio de Janeiro
+  </label>
+  <label>
+    <input type="checkbox" name="cidade" value="Belo Horizonte">Belo Horizonte
+  </label>
+  <br>
+  <button onclick="pesquisar()">Pesquisar</button>
+  <div id="loader" style="display: none;">Carregando...</div>
+  <div id="resultado"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="module">
+
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+    
+    // Create a single supabase client for interacting with your database
+    const supabase = createClient('https://vmyxyxwgslgaujxgdgkh.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZteXh5eHdnc2xnYXVqeGdkZ2toIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODA2MTI5MzIsImV4cCI6MTk5NjE4ODkzMn0.p1yR4JMbu6nKYnHMhYVUvDkI4zGE8KLtDHO_GxCPigo')
+
+    function pesquisar() {
+      const idadesSelecionadas = Array.from(document.querySelectorAll('input[name="idade"]:checked')).map(el => el.value)
+      const cidadesSelecionadas = Array.from(document.querySelectorAll('input[name="cidade"]:checked')).map(el => el.value)
+
+      const filtro = {}
+      if (idadesSelecionadas.length > 0) {
+        filtro.idade = { in: idadesSelecionadas }
+      }
+      if (cidadesSelecionadas.length > 0) {
+        filtro.cidade = { in: cidadesSelecionadas }
+      }
+
+      const loader = document.getElementById('loader')
+      loader.style.display = 'block'
+
+      supabase.from('pessoas').select('*').match(filtro)
+
+        .then(resultado => {
+          const divResultado = document.getElementById('resultado')
+          divResultado.innerHTML = ''
+
+          resultado.data.forEach(pessoa => {
+            const divPessoa = document.createElement('div')
+            divPessoa.innerHTML = `${pessoa.nome} - ${pessoa.idade} anos - ${pessoa.cidade}`
+            divResultado.appendChild(divPessoa)
+          })
+
+          loader.style.display = 'none'
+        })
+        .catch(erro => {
+          console.error(erro)
+          loader.style.display = 'none'
+        })
+    }
+  </script>
+</body>
+</html>
